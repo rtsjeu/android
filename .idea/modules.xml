@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/RTSlejeu.iml" filepath="$PROJECT_DIR$/RTSlejeu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../srg-media-player-android/analytics/analytics.iml" filepath="$PROJECT_DIR$/../srg-media-player-android/analytics/analytics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../srg-media-player-android/ildatasources/ildatasources.iml" filepath="$PROJECT_DIR$/../srg-media-player-android/ildatasources/ildatasources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../srg-media-player-android/offlinemedia/offlinemedia.iml" filepath="$PROJECT_DIR$/../srg-media-player-android/offlinemedia/offlinemedia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../srg-media-player-android/srgletterbox/srgletterbox.iml" filepath="$PROJECT_DIR$/../srg-media-player-android/srgletterbox/srgletterbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SRGMediaPlayer-Android/srgmediaplayer/srgmediaplayer.iml" filepath="$PROJECT_DIR$/../SRGMediaPlayer-Android/srgmediaplayer/srgmediaplayer.iml" />
+    </modules>
+  </component>
+</project>

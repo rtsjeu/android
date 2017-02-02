@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="dragueur-1.0.3">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/18989262d22d7ee745a60422a5d06f8f28329ef8/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/18989262d22d7ee745a60422a5d06f8f28329ef8/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.meetic.dragueur/dragueur/1.0.3/4c3f6f2fa6f458d10925d6ea7596d94db67e7e45/dragueur-1.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

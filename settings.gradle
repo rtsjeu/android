@@ -1,0 +1,7 @@
+include ':app', ':srgmediaplayer', ':ildatasources', ':analytics', ':offlinemedia', ':srgletterbox'
+
+project(':srgmediaplayer').projectDir = new File(settingsDir, '../SRGMediaPlayer-Android/srgmediaplayer')
+project(':ildatasources').projectDir = new File(settingsDir, '../srg-media-player-android/ildatasources')
+project(':offlinemedia').projectDir = new File(settingsDir, '../srg-media-player-android/offlinemedia')
+project(':analytics').projectDir = new File(settingsDir, '../srg-media-player-android/analytics')
+project(':srgletterbox').projectDir = new File(settingsDir, '../srg-media-player-android/srgletterbox')
