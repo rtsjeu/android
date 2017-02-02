@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "834755787927",
+    "firebase_url": "https://rtslejeu.firebaseio.com",
+    "project_id": "rtslejeu",
+    "storage_bucket": "rtslejeu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834755787927:android:2568aa5175084c16",
+        "android_client_info": {
+          "package_name": "ch.rts.mobile.le.jeu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834755787927-49mhauc4n1peat0ml3bvrtt7sodv1b0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQr790PxgB2MZprbBPG2CWpTcSRxuOdGk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834755787927-49mhauc4n1peat0ml3bvrtt7sodv1b0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/answer"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression." />
+
+    <fragment
+        android:layout_below="@+id/answer"
+        android:id="@+id/srg_media_player_fragment"
+        class="ch.srg.srgmediaplayer.fragment.SRGLetterbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:tag="@string/srg_letterbox_tag"
+        tools:layout="@layout/fragment_media_player" />
+
+</android.support.percent.PercentRelativeLayout>

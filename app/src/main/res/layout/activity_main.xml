@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ch.rts.mobile.le.jeu.activities.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/play" />
+
+    <Button
+        android:id="@+id/rules"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/rules" />
+
+</LinearLayout>

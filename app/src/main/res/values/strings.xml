@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RTS le jeu</string>
+    <string name="play">Jouer</string>
+    <string name="rules">Les règles</string>
+</resources>
