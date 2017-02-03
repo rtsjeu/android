@@ -7,4 +7,11 @@
     <string name="fail">Dommage&#8230;</string>
     <string name="congrats_1">%d point\nBravo !</string>
     <string name="congrats_n">%d points\nBravo !</string>
+    <string name="rules_text">
+        Pour chaque question qui vous est posée, une unique affirmation vous est proposée sous la forme d\'une carte.
+        A vous de déterminer si celle-ci est correcte ou erronée en la déplaçant vers la droite ou la gauche.
+        Pour aiguiller votre réponse, vous pouvez vous aider du média affiché dans la carte, et que vous pouvez lire en plein écran en le touchant.\n\n
+
+    Pour chaque réponse correcte, vous êtes crédité de 1 point, chaque réponse fausse retirant 2 points à votre score. A vous d\'obtenir le score le plus élevé possible!
+    </string>
 </resources>
