@@ -1,12 +1,14 @@
 package ch.rts.mobile.le.jeu.activities;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,6 +26,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ch.rts.mobile.le.jeu.R;
 import ch.rts.mobile.le.jeu.RTSGameApplication;
 import ch.rts.mobile.le.jeu.adapters.QuestionsAdapter;
@@ -40,7 +43,7 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
     private static final String TAG = "GameActivity";
     private static final String KEY_QUESTIONS = "Questions";
     private static final String KEY_POSITION = "Position";
-    private static final int QUESTIONS_BY_GAME = 8;
+    private static final int QUESTIONS_BY_GAME = 10;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -124,13 +127,11 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
 
     private void displayEndOfQuiz() {
         adapter.endOfGame();
-        title.setVisibility(View.GONE);
-        shuffle.setVisibility(View.GONE);
         getSupportActionBar().setTitle("Résultat");
         String resultString;
-        if (currentScore <= 0){
+        if (currentScore <= 0) {
             resultString = getString(R.string.fail);
-        } else if (currentScore == 1){
+        } else if (currentScore == 1) {
             resultString = getString(R.string.congrats_1, currentScore);
         } else {
             resultString = getString(R.string.congrats_n, currentScore);
@@ -139,33 +140,74 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
         revealResult();
     }
 
-    private void revealAnswer(boolean isCorrect){
+    private void revealAnswer(boolean isCorrect) {
+        int colorId = isCorrect ? R.color.green_alpha : R.color.red_alpha;
+        answerResult.setBackgroundColor(ContextCompat.getColor(this, colorId));
+        revealAnswerAnim();
+    }
 
+    public void revealAnswerAnim() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // get the center for the clipping circle
-            int cx = result.getWidth() / 2;
-            int cy = 0;
+            int cx = answerResult.getMeasuredWidth() / 2;
+            int cy = answerResult.getMeasuredHeight() / 2;
 
             // get the final radius for the clipping circle
             int finalRadius = Math.max(result.getWidth(), result.getHeight());
 
             // create the animator for this view (the start radius is zero)
-            Animator anim = ViewAnimationUtils.createCircularReveal(result, cx, cy, 0, finalRadius);
+            Animator anim = ViewAnimationUtils.createCircularReveal(answerResult, cx, cy, 0, finalRadius);
 
             // make the view visible and start the animation
             anim.setDuration(550);
-            result.setVisibility(View.VISIBLE);
+            answerResult.setVisibility(View.VISIBLE);
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    revertAnswerAnim();
+                }
+            });
             anim.start();
         } else {
-            result.setVisibility(View.VISIBLE);
+            answerResult.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void revertAnswerAnim() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // get the center for the clipping circle
+            int cx = answerResult.getMeasuredWidth() / 2;
+            int cy = answerResult.getMeasuredHeight() / 2;
+
+            // get the initial radius for the clipping circle
+            int initialRadius = Math.max(answerResult.getWidth(), answerResult.getHeight());
+
+            // create the animation (the final radius is zero)
+            Animator anim =
+                    ViewAnimationUtils.createCircularReveal(answerResult, cx, cy, initialRadius, 0);
+
+            // make the view invisible when the animation is done
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    next();
+                    answerResult.setVisibility(View.INVISIBLE);
+                }
+            });
+
+            // start the animation
+            anim.start();
+        } else {
+            answerResult.setVisibility(View.INVISIBLE);
         }
     }
 
     private void revealResult() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // get the center for the clipping circle
-            int cx = result.getWidth() / 2;
-            int cy = 0;
+            int cx = result.getMeasuredWidth() / 2;
+            int cy = result.getMeasuredHeight() / 2;
 
             // get the final radius for the clipping circle
             int finalRadius = Math.max(result.getWidth(), result.getHeight());
@@ -184,7 +226,9 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
 
     @Override
     public void onViewChanged(int position) {
-
+        if (position >= questions.size()) {
+            displayEndOfQuiz();
+        }
     }
 
     @Override
@@ -200,27 +244,39 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
     @Override
     public void onViewExited(DraggableView draggableView, Direction direction) {
         int position = shuffle.getCurrentAdapterPosition();
-        Answer answer = adapter.getAnswer(position - 1);
-        if ((answer.getIsCorrect() && direction == Direction.RIGHT)
-                || (!answer.getIsCorrect() && direction == Direction.LEFT)) {
-            currentScore++;
-            Log.d(TAG, "onViewExited: Correct");
-        } else {
-            currentScore -= 2;
-            Log.e(TAG, "onViewExited: Incorrect");
+        if (position < questions.size()) {
+            Answer answer = adapter.getAnswer(position - 1);
+            if ((answer.getIsCorrect() && direction == Direction.RIGHT)
+                    || (!answer.getIsCorrect() && direction == Direction.LEFT)) {
+                currentScore++;
+                revealAnswer(true);
+                Log.d(TAG, "onViewExited: Correct");
+            } else {
+                currentScore -= 2;
+                revealAnswer(false);
+                Log.e(TAG, "onViewExited: Incorrect");
+            }
+            score.setText("" + currentScore);
         }
-        score.setText("" + currentScore);
+    }
 
+    private void next() {
+        int position = shuffle.getCurrentAdapterPosition();
         if (position < questions.size()) {
             displayCurrentQuestion(position);
-        } else {
-            displayEndOfQuiz();
         }
     }
 
     @Override
     public void onViewScrolled(DraggableView draggableView, float percentX, float percentY) {
 
+    }
+
+    @OnClick(R.id.result)
+    public void backResult(View view){
+        if (view.getVisibility() == View.VISIBLE){
+            onSupportNavigateUp();
+        }
     }
 
     @Override

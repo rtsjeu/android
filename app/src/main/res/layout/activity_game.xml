@@ -10,66 +10,80 @@
     android:orientation="vertical"
     tools:context="ch.rts.mobile.le.jeu.activities.GameActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/fondgame" />
 
-    <TextView
-        android:id="@+id/title"
-        style="@style/Base.TextAppearance.AppCompat.Medium"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        android:padding="16dp"
-        android:text="Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte."
-        android:textColor="@color/white" />
-
-    <com.meetic.shuffle.Shuffle
-        android:id="@+id/shuffle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:elevation="4dp"
-        app:shuffle_colorLeft="#d32f2f"
-        app:shuffle_colorRight="#43a047"
-        app:shuffle_layoutLeft="@layout/textview_false"
-        app:shuffle_layoutRight="@layout/textview_true"
-        app:shuffle_numberOfDisplayedCards="1"
-        app:shuffle_rotation="10" />
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:elevation="4dp"
+            android:fitsSystemWindows="true"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:lines="4"
+            android:maxLines="4"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <com.meetic.shuffle.Shuffle
+            android:id="@+id/shuffle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:elevation="4dp"
+            app:shuffle_colorLeft="@color/red_alpha"
+            app:shuffle_colorRight="@color/green_alpha"
+            app:shuffle_layoutLeft="@layout/textview_false"
+            app:shuffle_layoutRight="@layout/textview_true"
+            app:shuffle_numberOfDisplayedCards="1"
+            app:shuffle_rotation="10" />
+
+        <TextView
+            android:id="@+id/score"
+            style="@style/TextAppearance.AppCompat.Display3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@color/red"
+            tools:text="10"
+            tools:textColor="@color/white"
+            tools:visibility="visible" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/result"
         style="@style/TextAppearance.AppCompat.Display3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/red"
         android:gravity="center"
         android:textColor="#FFFFFFFF"
         android:visibility="invisible"
         tools:text="visible"
-        tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/score"
-        style="@style/TextAppearance.AppCompat.Display3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:elevation="8dp"
-        android:padding="8dp"
-        android:textColor="@color/colorPrimaryDark"
-        tools:text="10"
-        tools:textColor="@color/white"
         tools:visibility="visible" />
 
     <TextView
@@ -77,14 +91,13 @@
         style="@style/TextAppearance.AppCompat.Display3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:background="@color/colorPrimaryDark"
         android:elevation="16dp"
+        android:fitsSystemWindows="false"
         android:gravity="center"
         android:textColor="#FFFFFFFF"
         android:visibility="invisible"
-        tools:text="visible"
         tools:elevation="0dp"
+        tools:text="visible"
         tools:visibility="visible" />
 
 </android.support.percent.PercentRelativeLayout>
