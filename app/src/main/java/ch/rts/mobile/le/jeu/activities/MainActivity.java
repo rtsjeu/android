@@ -2,7 +2,6 @@ package ch.rts.mobile.le.jeu.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
 import butterknife.BindView;
@@ -12,8 +11,6 @@ import ch.rts.mobile.le.jeu.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.play)
     Button play;
     @BindView(R.id.rules)
@@ -25,10 +22,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.app_name);
-        toolbar.setNavigationIcon(R.mipmap.ic_launcher);
     }
 
     @OnClick(R.id.play)

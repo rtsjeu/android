@@ -2,14 +2,18 @@
 
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@color/red_alpha</item>
+        <item name="android:navigationBarColor">@color/red_alpha</item>
     </style>
 
     <style name="AppTheme.MainActivity" parent="AppTheme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@color/red_alpha</item>
+        <item name="android:navigationBarColor">@color/red_alpha</item>
     </style>
 
 </resources>
