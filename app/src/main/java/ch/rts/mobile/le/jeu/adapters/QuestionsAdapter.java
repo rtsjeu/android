@@ -45,7 +45,9 @@ public class QuestionsAdapter extends Shuffle.Adapter<QuestionsAdapter.QuestionH
     public QuestionHolder onCreateViewHolder(ViewGroup viewGroup, int type) {
         FragmentManager fragmentManager = ((FragmentActivity) viewGroup.getContext())
                 .getSupportFragmentManager();
+
         if (letterboxWeakReference != null) {
+            letterboxWeakReference.get().stopMedia();
             fragmentManager
                     .beginTransaction()
                     .remove(letterboxWeakReference.get())
@@ -65,8 +67,13 @@ public class QuestionsAdapter extends Shuffle.Adapter<QuestionsAdapter.QuestionH
 
         letterboxWeakReference.get().setSegmentsEnabled(false);
         letterboxWeakReference.get().setControlsEnabled(false);
+        letterboxWeakReference.get().setNotificationEnabled(false);
 
         return new QuestionHolder(view);
+    }
+
+    public void endOfGame() {
+        letterboxWeakReference.get().stopMedia();
     }
 
     @Override

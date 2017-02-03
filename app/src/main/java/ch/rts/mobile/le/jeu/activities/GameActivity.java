@@ -51,6 +51,8 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
     @Inject
     GameRepository gameRepository;
 
+    private QuestionsAdapter adapter;
+
     private ArrayList<Question> questions = new ArrayList<>();
     private int position = 0;
 
@@ -80,7 +82,7 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
             questions.addAll(gameRepository.getCurrentGameSession().subList(position, QUESTIONS_BY_GAME - 1));
         }
         displayCurrentQuestion(0);
-        QuestionsAdapter adapter = new QuestionsAdapter(questions);
+        adapter = new QuestionsAdapter(questions);
         shuffle.setShuffleAdapter(adapter);
     }
 
@@ -107,6 +109,7 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
     }
 
     private void displayEndOfQuiz() {
+        adapter.endOfGame();
         title.setVisibility(View.GONE);
         shuffle.setVisibility(View.GONE);
         getSupportActionBar().setTitle("Résultat");
