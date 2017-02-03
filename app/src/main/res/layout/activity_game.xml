@@ -53,8 +53,8 @@
             android:clipChildren="false"
             android:clipToPadding="false"
             android:elevation="4dp"
-            app:shuffle_colorLeft="@color/red_alpha"
-            app:shuffle_colorRight="@color/green_alpha"
+            app:shuffle_colorLeft="@color/transparent"
+            app:shuffle_colorRight="@color/transparent"
             app:shuffle_layoutLeft="@layout/textview_false"
             app:shuffle_layoutRight="@layout/textview_true"
             app:shuffle_numberOfDisplayedCards="1"
@@ -75,18 +75,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/result"
-        style="@style/TextAppearance.AppCompat.Display3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/red"
-        android:gravity="center"
-        android:textColor="#FFFFFFFF"
-        android:visibility="invisible"
-        tools:text="visible"
-        tools:visibility="visible" />
-
-    <TextView
         android:id="@+id/answer_result"
         style="@style/TextAppearance.AppCompat.Display3"
         android:layout_width="match_parent"
@@ -97,7 +85,33 @@
         android:textColor="#FFFFFFFF"
         android:visibility="invisible"
         tools:elevation="0dp"
-        tools:text="visible"
         tools:visibility="visible" />
+
+    <FrameLayout
+        android:id="@+id/result_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/fondstart" />
+
+        <TextView
+            android:id="@+id/result"
+            style="@style/TextAppearance.AppCompat.Display4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/score"
+            android:gravity="center"
+            android:textColor="#FEF3CA"
+            android:textStyle="bold"
+            tools:text="result" />
+
+    </FrameLayout>
 
 </android.support.percent.PercentRelativeLayout>

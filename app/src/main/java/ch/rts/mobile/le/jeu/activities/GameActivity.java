@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.meetic.dragueur.Direction;
@@ -53,6 +54,8 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
     TextView title;
     @BindView(R.id.result)
     TextView result;
+    @BindView(R.id.result_layout)
+    FrameLayout resultLayout;
     @BindView(R.id.score)
     TextView score;
     @BindView(R.id.answer_result)
@@ -127,16 +130,7 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
 
     private void displayEndOfQuiz() {
         adapter.endOfGame();
-        getSupportActionBar().setTitle("Résultat");
-        String resultString;
-        if (currentScore <= 0) {
-            resultString = getString(R.string.fail);
-        } else if (currentScore == 1) {
-            resultString = getString(R.string.congrats_1, currentScore);
-        } else {
-            resultString = getString(R.string.congrats_n, currentScore);
-        }
-        result.setText(resultString);
+        result.setText("" + currentScore);
         revealResult();
     }
 
@@ -153,7 +147,7 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
             int cy = answerResult.getMeasuredHeight() / 2;
 
             // get the final radius for the clipping circle
-            int finalRadius = Math.max(result.getWidth(), result.getHeight());
+            int finalRadius = Math.max(answerResult.getWidth(), answerResult.getHeight());
 
             // create the animator for this view (the start radius is zero)
             Animator anim = ViewAnimationUtils.createCircularReveal(answerResult, cx, cy, 0, finalRadius);
@@ -206,21 +200,21 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
     private void revealResult() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // get the center for the clipping circle
-            int cx = result.getMeasuredWidth() / 2;
-            int cy = result.getMeasuredHeight() / 2;
+            int cx = resultLayout.getMeasuredWidth() / 2;
+            int cy = resultLayout.getMeasuredHeight() / 2;
 
             // get the final radius for the clipping circle
-            int finalRadius = Math.max(result.getWidth(), result.getHeight());
+            int finalRadius = Math.max(resultLayout.getWidth(), resultLayout.getHeight());
 
             // create the animator for this view (the start radius is zero)
-            Animator anim = ViewAnimationUtils.createCircularReveal(result, cx, cy, 0, finalRadius);
+            Animator anim = ViewAnimationUtils.createCircularReveal(resultLayout, cx, cy, 0, finalRadius);
 
             // make the view visible and start the animation
             anim.setDuration(550);
-            result.setVisibility(View.VISIBLE);
+            resultLayout.setVisibility(View.VISIBLE);
             anim.start();
         } else {
-            result.setVisibility(View.VISIBLE);
+            resultLayout.setVisibility(View.VISIBLE);
         }
     }
 

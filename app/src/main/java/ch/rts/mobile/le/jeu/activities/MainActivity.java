@@ -2,7 +2,7 @@ package ch.rts.mobile.le.jeu.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -12,9 +12,9 @@ import ch.rts.mobile.le.jeu.R;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.play)
-    Button play;
+    ImageButton play;
     @BindView(R.id.rules)
-    Button rules;
+    ImageButton rules;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
