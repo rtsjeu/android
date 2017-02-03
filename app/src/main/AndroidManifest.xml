@@ -21,7 +21,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.GameActivity" />
+        <activity android:name=".activities.GameActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
         <activity android:name=".activities.RulesActivity" />
 
     </application>

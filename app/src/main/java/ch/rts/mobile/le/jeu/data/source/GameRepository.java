@@ -3,7 +3,12 @@ package ch.rts.mobile.le.jeu.data.source;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import ch.rts.mobile.le.jeu.data.source.remote.GameRemoteDataSource;
+import ch.rts.mobile.le.jeu.model.Question;
 import ch.rts.mobile.le.jeu.model.Questions;
 
 /**
@@ -12,6 +17,8 @@ import ch.rts.mobile.le.jeu.model.Questions;
 public class GameRepository implements GameDataSource {
 
     private final GameRemoteDataSource gameRemoteDataSource;
+
+    private List<Question> questionList = new ArrayList<>();
 
     public GameRepository(@NonNull GameRemoteDataSource gameRemoteDataSource) {
         this.gameRemoteDataSource = gameRemoteDataSource;
@@ -23,7 +30,11 @@ public class GameRepository implements GameDataSource {
         gameRemoteDataSource.getQuestions(new GetQuestionsCallback() {
             @Override
             public void onQuestionsLoaded(Questions questions) {
-                callback.onQuestionsLoaded(questions);
+                if (questions != null && !questions.getQuestions().isEmpty()) {
+                    questionList.clear();
+                    questionList.addAll(questions.getQuestions());
+                    callback.onQuestionsLoaded(questions);
+                }
             }
 
             @Override
@@ -38,4 +49,14 @@ public class GameRepository implements GameDataSource {
     public void getRelatedMedias(@NonNull String query, @NonNull GetRelatedMediasCallback callback) {
 
     }
+
+    public List<Question> startNewGameSession(){
+        Collections.shuffle(questionList);
+        return questionList;
+    }
+
+    public List<Question> getCurrentGameSession(){
+        return questionList;
+    }
+
 }

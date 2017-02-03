@@ -40,7 +40,6 @@ public class RTSGameApplication extends Application implements Application.Activ
     private AppComponent appComponent;
     private IlDataProviderComponent ilDataProviderComponent;
     private SrgApplicationUtils srgApplicationUtils;
-    private Questions questions;
 
     @Inject
     GameRepository gameRepository;
@@ -71,12 +70,9 @@ public class RTSGameApplication extends Application implements Application.Activ
         srgApplicationUtils.setup();
 
         gameRepository.getQuestions(new GameDataSource.GetQuestionsCallback() {
-
-
             @Override
             public void onQuestionsLoaded(Questions questions) {
                 Log.d(TAG, "onQuestionsLoaded: " + questions.getQuestions().size());
-                RTSGameApplication.this.questions = questions;
             }
 
             @Override
@@ -92,10 +88,6 @@ public class RTSGameApplication extends Application implements Application.Activ
 
     public static AppComponent getAppComponent(Context context) {
         return get(context).appComponent;
-    }
-
-    public Questions getQuestions() {
-        return this.questions;
     }
 
     private void setDefaultLocale() {

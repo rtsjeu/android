@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Base.TextAppearance.AppCompat.Display2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="16dp"
+    android:gravity="center_vertical|right"
+    android:text="@string/answer_is_false"
+    android:textAllCaps="true"
+    android:textColor="@color/white"
+    android:textStyle="bold"
+    tools:textColor="@color/black" />

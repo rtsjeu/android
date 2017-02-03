@@ -2,4 +2,6 @@
     <string name="app_name">RTS le jeu</string>
     <string name="play">Jouer</string>
     <string name="rules">Les règles</string>
+    <string name="answer_is_true">vrai</string>
+    <string name="answer_is_false">faux</string>
 </resources>

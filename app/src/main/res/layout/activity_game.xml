@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        android:elevation="4dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <TextView
@@ -23,8 +24,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_margin="16dp"
-        android:text="Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte." />
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:text="Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte."
+        android:textColor="@color/white" />
 
     <com.meetic.shuffle.Shuffle
         android:id="@+id/shuffle"
@@ -33,6 +37,25 @@
         android:layout_below="@+id/title"
         android:clipChildren="false"
         android:clipToPadding="false"
-        app:shuffle_numberOfDisplayedCards="1" />
+        android:elevation="4dp"
+        app:shuffle_colorLeft="#d32f2f"
+        app:shuffle_colorRight="#43a047"
+        app:shuffle_layoutLeft="@layout/textview_false"
+        app:shuffle_layoutRight="@layout/textview_true"
+        app:shuffle_numberOfDisplayedCards="1"
+        app:shuffle_rotation="10" />
+
+    <TextView
+        android:id="@+id/result"
+        style="@style/TextAppearance.AppCompat.Display3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:textColor="#FFFFFFFF"
+        android:visibility="invisible"
+        tools:text="visible"
+        tools:visibility="visible" />
 
 </android.support.percent.PercentRelativeLayout>

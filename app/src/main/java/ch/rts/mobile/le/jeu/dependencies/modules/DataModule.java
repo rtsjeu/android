@@ -21,13 +21,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class DataModule {
 
-    private static final String RETROFIT_ARCHIVES = "Archives";
     private static final String RETROFIT_DATA = "Data";
     private static final String HTTP_CLIENT = "Client";
 
     private static final String URL_DATA = "https://srgssr-prod.apigee.net/";
 
     @Provides
+    @AppScope
     GameRepository provideGameRepository(GameRemoteDataSource gameRemoteDataSource){
         return new GameRepository(gameRemoteDataSource);
     }
