@@ -4,4 +4,7 @@
     <string name="rules">Les règles</string>
     <string name="answer_is_true">vrai</string>
     <string name="answer_is_false">faux</string>
+    <string name="fail">Dommage&#8230;</string>
+    <string name="congrats_1">%d point\nBravo !</string>
+    <string name="congrats_n">%d points\nBravo !</string>
 </resources>

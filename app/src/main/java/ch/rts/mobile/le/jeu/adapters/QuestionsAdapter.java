@@ -12,7 +12,9 @@ import com.meetic.shuffle.Shuffle;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +32,10 @@ public class QuestionsAdapter extends Shuffle.Adapter<QuestionsAdapter.QuestionH
 
     private List<Question> questions = new ArrayList<>(10);
     WeakReference<SRGLetterbox> letterboxWeakReference;
+
+    private Random rand = new Random();
+
+    private ArrayList<Answer> answers = new ArrayList<>();
 
     public QuestionsAdapter(List<Question> questions) {
         this.questions = questions;
@@ -73,15 +79,35 @@ public class QuestionsAdapter extends Shuffle.Adapter<QuestionsAdapter.QuestionH
     }
 
     public void endOfGame() {
-        letterboxWeakReference.get().stopMedia();
+        if (letterboxWeakReference.get() != null) {
+            letterboxWeakReference.get().stopMedia();
+        }
     }
 
     @Override
     public void onBindViewHolder(QuestionHolder holder, int position) {
         Question question = questions.get(position);
-        Answer answer = question.getAnswers().get(0);
-        holder.answer.setText(answer.getText());
-        letterboxWeakReference.get().play(answer.getPlayurn(), null);
+        ArrayList<Answer> correctAnswers = new ArrayList<>(5);
+        ArrayList<Answer> incorrectAnswers = new ArrayList<>(5);
+        for (Answer answer : question.getAnswers()) {
+            if (answer.getIsCorrect()){
+                correctAnswers.add(answer);
+            } else {
+                incorrectAnswers.add(answer);
+            }
+        }
+
+        Collections.shuffle(correctAnswers);
+        Collections.shuffle(incorrectAnswers);
+
+        Answer answer = (rand.nextBoolean() ? correctAnswers : incorrectAnswers).get(0);
+
+        answers.add(answer);
+
+        holder.answerText.setText(answer.getText());
+        if(!answer.getPlayUrn().isEmpty()) {
+            letterboxWeakReference.get().play(answer.getPlayUrn(), null);
+        }
     }
 
     @Override
@@ -89,10 +115,14 @@ public class QuestionsAdapter extends Shuffle.Adapter<QuestionsAdapter.QuestionH
         return questions.size();
     }
 
+    public Answer getAnswer(int position) {
+        return answers.get(position);
+    }
+
     class QuestionHolder extends Shuffle.ViewHolder {
 
         @BindView(R.id.answer)
-        TextView answer;
+        TextView answerText;
 
         QuestionHolder(View view) {
             super(view);

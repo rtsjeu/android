@@ -14,10 +14,7 @@ public class Answer implements Parcelable {
     private String text;
     @SerializedName("playUrn")
     @Expose
-    private String playurn;
-    @SerializedName("image")
-    @Expose
-    private String image;
+    private String playUrn;
     @SerializedName("isCorrect")
     @Expose
     private Boolean isCorrect;
@@ -33,20 +30,12 @@ public class Answer implements Parcelable {
         this.text = text;
     }
 
-    public String getPlayurn() {
-        return playurn;
+    public String getPlayUrn() {
+        return playUrn;
     }
 
-    public void setPlayurn(String playurn) {
-        this.playurn = playurn;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setPlayUrn(String playUrn) {
+        this.playUrn = playUrn;
     }
 
     public Boolean getIsCorrect() {
@@ -73,8 +62,7 @@ public class Answer implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.text);
-        dest.writeString(this.playurn);
-        dest.writeString(this.image);
+        dest.writeString(this.playUrn);
         dest.writeValue(this.isCorrect);
         dest.writeString(this.title);
     }
@@ -84,8 +72,7 @@ public class Answer implements Parcelable {
 
     protected Answer(Parcel in) {
         this.text = in.readString();
-        this.playurn = in.readString();
-        this.image = in.readString();
+        this.playUrn = in.readString();
         this.isCorrect = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.title = in.readString();
     }

@@ -3,11 +3,13 @@ package ch.rts.mobile.le.jeu.activities;
 import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ import ch.rts.mobile.le.jeu.R;
 import ch.rts.mobile.le.jeu.RTSGameApplication;
 import ch.rts.mobile.le.jeu.adapters.QuestionsAdapter;
 import ch.rts.mobile.le.jeu.data.source.GameRepository;
+import ch.rts.mobile.le.jeu.model.Answer;
 import ch.rts.mobile.le.jeu.model.Question;
 
 /**
@@ -47,6 +50,10 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
     TextView title;
     @BindView(R.id.result)
     TextView result;
+    @BindView(R.id.score)
+    TextView score;
+    @BindView(R.id.answer_result)
+    TextView answerResult;
 
     @Inject
     GameRepository gameRepository;
@@ -55,6 +62,7 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
 
     private ArrayList<Question> questions = new ArrayList<>();
     private int position = 0;
+    private int currentScore = 0;
 
     public static void start(Activity activity) {
         start(activity, null);
@@ -93,6 +101,12 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        adapter.endOfGame();
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         return super.onSupportNavigateUp();
     }
@@ -113,12 +127,42 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
         title.setVisibility(View.GONE);
         shuffle.setVisibility(View.GONE);
         getSupportActionBar().setTitle("Résultat");
-        result.setText("Bravo !");
+        String resultString;
+        if (currentScore <= 0){
+            resultString = getString(R.string.fail);
+        } else if (currentScore == 1){
+            resultString = getString(R.string.congrats_1, currentScore);
+        } else {
+            resultString = getString(R.string.congrats_n, currentScore);
+        }
+        result.setText(resultString);
         revealResult();
     }
 
-    private void revealResult(){
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+    private void revealAnswer(boolean isCorrect){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // get the center for the clipping circle
+            int cx = result.getWidth() / 2;
+            int cy = 0;
+
+            // get the final radius for the clipping circle
+            int finalRadius = Math.max(result.getWidth(), result.getHeight());
+
+            // create the animator for this view (the start radius is zero)
+            Animator anim = ViewAnimationUtils.createCircularReveal(result, cx, cy, 0, finalRadius);
+
+            // make the view visible and start the animation
+            anim.setDuration(550);
+            result.setVisibility(View.VISIBLE);
+            anim.start();
+        } else {
+            result.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void revealResult() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // get the center for the clipping circle
             int cx = result.getWidth() / 2;
             int cy = 0;
@@ -140,11 +184,7 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
 
     @Override
     public void onViewChanged(int position) {
-        if (position < questions.size()) {
-            displayCurrentQuestion(position);
-        } else {
-            displayEndOfQuiz();
-        }
+
     }
 
     @Override
@@ -159,7 +199,23 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
 
     @Override
     public void onViewExited(DraggableView draggableView, Direction direction) {
+        int position = shuffle.getCurrentAdapterPosition();
+        Answer answer = adapter.getAnswer(position - 1);
+        if ((answer.getIsCorrect() && direction == Direction.RIGHT)
+                || (!answer.getIsCorrect() && direction == Direction.LEFT)) {
+            currentScore++;
+            Log.d(TAG, "onViewExited: Correct");
+        } else {
+            currentScore -= 2;
+            Log.e(TAG, "onViewExited: Incorrect");
+        }
+        score.setText("" + currentScore);
 
+        if (position < questions.size()) {
+            displayCurrentQuestion(position);
+        } else {
+            displayEndOfQuiz();
+        }
     }
 
     @Override
