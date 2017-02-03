@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.meetic.dragueur.Direction;
@@ -58,8 +59,10 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
     FrameLayout resultLayout;
     @BindView(R.id.score)
     TextView score;
+    @BindView(R.id.answer_result_layout)
+    FrameLayout answerResult;
     @BindView(R.id.answer_result)
-    TextView answerResult;
+    ImageView answerImage;
 
     @Inject
     GameRepository gameRepository;
@@ -135,7 +138,9 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
     }
 
     private void revealAnswer(boolean isCorrect) {
-        int colorId = isCorrect ? R.color.green_alpha : R.color.red_alpha;
+        int colorId = isCorrect ? R.color.green : R.color.red;
+        int icon = isCorrect ? R.drawable.bonnereponse : R.drawable.mauvaisereponse;
+        answerImage.setImageResource(icon);
         answerResult.setBackgroundColor(ContextCompat.getColor(this, colorId));
         revealAnswerAnim();
     }
@@ -250,7 +255,7 @@ public class GameActivity extends AppCompatActivity implements Shuffle.Listener 
                 revealAnswer(false);
                 Log.e(TAG, "onViewExited: Incorrect");
             }
-            score.setText("" + currentScore);
+            score.setText("Score: " + currentScore);
         }
     }
 
